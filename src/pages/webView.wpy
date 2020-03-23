@@ -1,0 +1,41 @@
+<template>
+  <view>
+    <web-view src="{{src}}"/>
+  </view>
+</template>
+
+<script>
+import wepy from "wepy";
+import {BasePage} from '@/app'
+import api from "@/api/api";
+
+export default class Lciense extends BasePage {
+  config = {
+    navigationBarTitleText: "",
+    "usingComponents": {}
+  };
+  data = {
+    src: "",
+  };
+  methods = {
+  };
+
+  onLoad(options, data) {
+    super.onLoad();
+    // this.src = data.preload.src;
+    this.src = wepy.getStorageSync("bannerClickUrl");
+    let title = wepy.getStorageSync("bannerTitle");
+    wepy.setNavigationBarTitle({
+      title: title
+    })
+  }
+}
+</script>
+
+
+<style lang="less">
+page {
+  background: #fff;
+}
+
+</style>

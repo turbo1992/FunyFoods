@@ -1,0 +1,70 @@
+// Parser/trees/cssHandler.wxs
+var getStyle=function(style, display, isImg) {
+  var res = "";
+  var reg = getRegExp("float\s*:\s*[^;]*", "i");
+  if (reg.test(style)) res += reg.exec(style)[0];
+  reg = getRegExp("display\s*:\s*[^;]*", "i");
+  if (reg.test(style)) res += (';' + reg.exec(style)[0]);
+  else res += (';display:' + display);
+  reg = getRegExp("[^;\s]*width\s*:\s*[^;]*", "ig");
+  var width = reg.exec(style);
+  while (width) {
+    res += (';' + width[0]);
+    width = reg.exec(style);
+  }
+  if (isImg) {
+    reg = getRegExp("[^;\s]*height\s*:\s*[^;]*", "ig");
+    var height = reg.exec(style);
+    res += (';' + height);
+  }
+  return res;
+}
+var setImgStyle= function (item, imgMode) {
+
+  var reg = getRegExp("px", "g");
+  item.attrs.style = item.attrs.style.replace(reg,"rpx");
+
+  reg = getRegExp(";width\s*:\s*[^;]*", "ig");
+  if (reg.test(item.attrs.style)) {
+    var width = getValue(reg.exec(item.attrs.style)[0]);
+  }
+
+  reg = getRegExp("height\s*:\s*[^;]*", "ig");
+  if (reg.test(item.attrs.style)) {
+    var height = reg.exec(item.attrs.style)[0];
+  }
+
+  if (width && height) {
+    var heightValue = getValue(height)
+    if (width > maxWidth) {
+      heightValue = parseInt(heightValue * maxWidth / width);
+    }
+    item.attrs.style = item.attrs.style.replace(height, "height:" + heightValue + "rpx;")
+    
+    if (imgMode == "widthFix") item.attrs.style += "height:auto !important";
+  }
+
+  return [item];
+}
+var setStyle = function(item) {
+  if (getRegExp("[^-]width\s*:\s*[^;]*", "i").test(';' + item.attrs.style))
+    item.attrs.style += ';width:100%';
+  return [item];
+}
+
+var getImgStyle = function(item, imgMode, display) {
+  item = setImgStyle(item, imgMode)[0];
+  return getStyle(item.attrs.style, display, true)
+}
+
+var getValue = function(str) {
+  var starIndex = str.indexOf(":") + 1;
+  var endIndex = str.indexOf("rpx") > 0 ? str.indexOf("rpx") : str.indexOf("px");
+  return parseInt(str.substring(starIndex,endIndex));
+}
+module.exports = {
+  getStyle: getStyle,
+  setImgStyle: setImgStyle,
+  setStyle: setStyle,
+  getImgStyle: getImgStyle
+}

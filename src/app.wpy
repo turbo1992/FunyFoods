@@ -1,0 +1,282 @@
+<style lang="less">
+@import "/components/vant-weapp/common/index.wxss";
+page {
+  background: #f8f8fa;
+}
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  // justify-content: space-between;
+  box-sizing: border-box;
+  color: #333;
+}
+//水平居中
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+// 两端对齐
+.justify {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+// 垂直居中对齐
+.vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+//按钮
+button:after {
+  border: none;
+}
+button {
+  background: none;
+  padding: 0;
+  margin: 0;
+}
+// 主要按钮
+.btn {
+  width: 630rpx;
+  height: 88rpx;
+  line-height: 88rpx;
+  background: #ec1515;
+  border-radius: 10rpx;
+  text-align: center;
+  color: #fff;
+  font-size: 28rpx;
+  font-weight: 500;
+  border: none;
+}
+// 线框按钮
+.btn-line {
+  background: #fff;
+  color: #e91919;
+  border: 1px solid #e91919;
+}
+//输入框提示语
+.placeholder {
+  font-size: 34rpx;
+  color: #c3c5d1;
+}
+// 单行文本省略显示
+.txt-omit {
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+//搜索框
+.search {
+  width: 750rpx;
+  // padding: 20rpx 10rpx 20rpx 32rpx !important;
+  background: #ec1515 !important;
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  .input {
+    background: #efeff4;
+    border-radius: 33rpx;
+    margin-left: -20rpx;
+    padding-left: 30rpx;
+  }
+
+  .van-search__content--round {
+    border-radius: 50% !important;
+  }
+  .action {
+    color: #fff;
+  }
+}
+// 默认标识
+.default {
+  width: 72rpx;
+  height: 28rpx;
+  background: #e91919;
+  color: #fff;
+  font-size: 20rpx;
+  text-align: center;
+  line-height: 28rpx;
+  border-radius: 4rpx;
+  margin-left: 20rpx;
+  font-weight: 500;
+}
+// 底部固定条
+.bottom {
+  width: 690rpx;
+  height: 100rpx;
+  font-size: 28rpx;
+  padding: 0 30rpx;
+  background: #fff;
+  border-top: 1px #eee solid;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+}
+// 小数点后文字大小
+.small {
+  font-size: 26rpx !important;
+}
+// 清除横向滚动条
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
+  display: none;
+}
+//页面顶部横线
+.line {
+  width: 750rpx;
+  height: 1rpx;
+  background: #eee;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+// vant组件滑动按钮样式
+.van-swipe-cell__left,
+.van-swipe-cell__right {
+  display: inline-block;
+  width: 65px;
+  font-size: 15px;
+  color: #fff;
+  background-color: #f44;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+//*********** radio、checkbox **********
+/* 未选中的样式 */
+radio .wx-radio-input,
+checkbox .wx-checkbox-input {
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  border: 2px solid #666;
+}
+/* 选中后 背景及对勾的样式 */
+radio .wx-radio-input.wx-radio-input-checked::before,
+checkbox .wx-checkbox-input.wx-checkbox-input-checked::before {
+  width: 38rpx;
+  height: 38rpx;
+  border-radius: 50%;
+  line-height: 40rpx;
+  text-align: center;
+  font-size: 26rpx; /* 勾大小 */
+  font-weight: 800;
+  color: #fff; /* 白色勾  */
+  background: #e91919;
+  transform: translate(-50%, -50%) scale(1);
+}
+</style>
+
+<script>
+import wepy from "wepy";
+import "wepy-async-function";
+import api from "@/api/api";
+import util from "@/utils/util";
+import constant from "@/utils/constant";
+
+export class BasePage extends wepy.page {
+  onLoad() {
+    this.tempData = {};
+    for (var s in this.data) {
+      this.tempData[s] = this.data[s];
+    }
+  }
+  onUnload() {
+    for (var s in this.data) {
+      this.data[s] = this.tempData[s];
+    }
+  }
+}
+
+export class BaseComponent extends wepy.component {
+  onLoad() {
+    this.tempData = {};
+    for (var s in this.data) {
+      this.tempData[s] = this.data[s];
+    }
+  }
+
+  onUnload() {
+    for (var s in this.data) {
+      this.data[s] = this.tempData[s];
+    }
+  }
+}
+
+export default class extends wepy.app {
+  onLaunch() {
+    let that = this;
+
+    wx.getNetworkType({
+      success(res) {
+        // 返回网络类型, 有效值：
+        // wifi/2g/3g/4g/unknown(Android下不常见的网络类型)/none(无网络)
+        that.globalData.isConnected = res.networkType != "none" ? true : false;
+      }
+    }),
+    wepy.onNetworkStatusChange(res => {
+      that.globalData.isConnected = res.isConnected;
+      console.log(that.globalData.isConnected);
+    });
+  }
+
+  onShow() {
+  
+  }
+
+  config = {
+    pages: [
+      "pages/home/home", //首页
+      "pages/mine/mine", //我的
+      "pages/webView" //banner外链
+    ],
+    tabBar: {
+      color: "#999999",
+      selectedColor: "#EC1515",
+      list: [
+        {
+          iconPath: "/images/home.png",
+          selectedIconPath: "/images/home_active.png",
+          pagePath: "pages/home/home",
+          text: "首页"
+        },
+        {
+          iconPath: "/images/mine.png",
+          selectedIconPath: "/images/mine_active.png",
+          pagePath: "pages/mine/mine",
+          text: "我的"
+        }
+      ]
+    },
+    window: {
+      backgroundTextStyle: "light",
+      navigationBarBackgroundColor: "#fff",
+      navigationBarTitleText: "WeChat",
+      navigationBarTextStyle: "black"
+    }
+  };
+
+  globalData = {
+    isConnected: "", //网络连接状态
+    userInfo: null, //用户的微信信息
+    phoneNum: "", //手机号
+    wallet: "", //钱包地址
+    scoreRule: "", //积分规则
+    userDetail: "" //用户详情信息
+  };
+
+  constructor() {
+    super();
+    this.use("requestfix");
+    this.use("promisify");
+  }
+}
+</script>

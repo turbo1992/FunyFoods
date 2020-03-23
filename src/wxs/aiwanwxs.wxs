@@ -1,0 +1,211 @@
+var filter = {
+    formatTime: function (time) {
+        if (time) {
+            var date = getDate(time);
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+            var hour = date.getHours();
+            var minute = date.getMinutes();
+    
+            month = check(month);
+            day = check(day);
+            hour = check(hour);
+            minute = check(minute);
+            return year + "-" + month + "-" + day + " " + hour + ":" + minute;
+        } else {
+            return  "";
+        }
+    },
+
+    formatYear: function (time) {
+        if (time) {
+            var date = getDate(time);
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1;
+            var day = date.getDate();
+    
+            month = check(month);
+            day = check(day);
+            return year + "." + month + "." + day;
+        } else {
+            return ""
+        }
+    },
+
+    formatAmount: function (amount, mode) {
+        if (mode === "ceil") {
+            //保留2位小数（向上取整）
+            return formatAmountCeil(amount);
+        } else if (mode === "floor") {
+            //保留2位小数（向下取整）
+            return formatAmountFloor(amount);
+        } else if (mode === "round") {
+            //保留2位小数（四舍五入）
+            return formatAmountRound(amount);
+        } else {
+            // return "";
+            return formatAmountRound(amount);
+        }
+    },
+
+    formatHash: function (hash) {
+        var formatHash = "";
+        if (hash) {
+            formatHash = hash.substring(0, 14) + "..." + hash.substring(hash.length - 14, hash.length);
+        }
+        return formatHash;
+    },
+    
+    formatScoreType: function (scoreType) {
+        var scoreTypeName = "";
+        if (scoreType == 1) {
+            scoreTypeName = "签到";
+        } else if (scoreType == 2) {
+            scoreTypeName = "邀请用户";
+        } else if (scoreType == 3) {
+            scoreTypeName = "游戏";
+        } else if (scoreType == 4) {
+            scoreTypeName = "分享文章";
+        } else if (scoreType == 5) {
+            scoreTypeName = "评论文章";
+        } else if (scoreType == 6) {
+            scoreTypeName = "消费";
+        } else if (scoreType == 7) {
+            scoreTypeName = "注册";
+        } else if (scoreType == 8) {
+            scoreTypeName = "信息补全";
+        } else if (scoreType == 9) {
+            scoreTypeName = "实名";
+        } else if (scoreType == 10) {
+            scoreTypeName = "礼品兑换";
+        } else if (scoreType == 11) {
+            scoreTypeName = "抽奖";
+        }
+        return scoreTypeName;
+    },
+
+    formatPriceInt: function(price) {
+        var formatPriceInt = "";
+        if (price) {
+            price = trimZero(price).toString();
+            if (price.indexOf(".") != -1) {
+                formatPriceInt = price.split('.')[0] + ".";
+            } else {
+                formatPriceInt = price
+            }
+        }
+
+        return formatPriceInt;
+    },
+
+    formatPriceDecimal: function (price) {
+        var formatPriceDecimal = "";
+        if (price) {
+            price = trimZero(price).toString();
+            if (price.indexOf(".") != -1) {
+                formatPriceDecimal = price.split('.')[1];
+            } else {
+                formatPriceDecimal = ""
+            }
+        }
+
+        return formatPriceDecimal;
+    },
+
+    parseInt: function (amount) {
+        var intAmount = "";
+        intAmount = parseInt(amount);
+        if (!intAmount) {
+            return "0";
+        }
+        return intAmount;
+    },
+
+    sensitiveTelNum: function (telNum) {
+        var result = "";
+        if (telNum.length == 11) {
+            result = telNum.substring(0, 3) + "****" + telNum.substring(7, 11);
+        }
+        return result;
+    },
+                       
+    //格式化优惠券打折数字
+    formatDiscountNum : function (originNum) {
+        result = parseFloat(originNum);
+        return result;
+    },
+    
+    //手机号脱敏处理
+    formatSafePhoneNum: function(phoneNum) {
+        if (phoneNum.length != 11) {
+            return phoneNum;
+        }
+        result = phoneNum.substring(0, 3) + "****" + phoneNum.substring(7, 11);
+        return result;
+    }
+};
+
+var check = function (str) {
+    str = str.toString();
+    if (str.length < 2) {
+        str = '0' + str;
+    }
+    return str;
+};
+
+//乘法(解决小数相乘精度问题)
+var mul = function (arg1, arg2) {
+    var m = 0, s1 = arg1.toString(), s2 = arg2.toString();
+    if (s1.split(".")[1]) {
+        m += s1.split(".")[1].length;
+        s1 = Number(s1.replace(".", ""));
+    }
+
+    if (s2.split(".")[1]) {
+        m += s2.split(".")[1].length;
+        s2 = Number(s2.replace(".", ""));
+    }
+    
+    return s1 * s2 / Math.pow(10, m);
+  };
+
+//保留2位小数（向上取整）
+var formatAmountCeil = function (amount) {
+    var formatAmount = "";
+    if (amount || amount === 0) {
+        formatAmount = Math.ceil(mul(amount, 100)) / 100;
+    }
+    return formatAmount;
+}
+
+//保留2位小数（向下取整）
+var formatAmountFloor = function (amount) {
+    var formatAmount = "";
+    if (amount || amount === 0) {
+        formatAmount = Math.floor(mul(amount, 100)) / 100;
+    }
+    return formatAmount;
+}
+
+//保留2位小数（四舍五入）
+var formatAmountRound = function (amount) {
+    var formatAmount = "";
+    if (amount || amount === 0) {
+        formatAmount = Math.round(mul(amount, 100)) / 100;
+    }
+    return formatAmount;
+}
+
+//去除小数后多余的0
+var trimZero = function (str) {
+    if (typeof (str) == 'undefined' || str == null || str.trim() == '') {
+        return str;
+    }
+
+    return parseFloat(str);
+}
+
+filter.trimZero = trimZero;
+
+module.exports = filter;

@@ -1,0 +1,16 @@
+node_modules
+dist
+.DS_store
+.idea/*
+/.editorconfig
+/.eslintignore
+.prettierrc
+/.npmignore
+/.wepycache
+/.wepyignore
+/package-lock.json
+/src/ext.json
+.settings/
+.buildpath
+.project
+.vscode

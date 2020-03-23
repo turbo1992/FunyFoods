@@ -1,0 +1,62 @@
+<template>
+  <view class="weui-loadmore" wx:if="{{showLoadMore}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore-tips">{{loadingMsg}}</view>
+  </view>
+  <view class="weui-loadmore" wx:if="{{showNoMore}}">
+    <view class="weui-loadmore-tips">{{noMoreMsg}}</view>
+  </view>
+</template>
+<script>
+import wepy from "wepy";
+import { BaseComponent } from "@/app";
+
+export default class bottomLoadMore extends BaseComponent {
+  props = {
+    showLoadMore: {
+      type: Boolean,
+      default: false
+    },
+    showNoMore: {
+      type: Boolean,
+      default: false
+    },
+    loadingMsg: {
+      type: String,
+      default: "正在加载"
+    },
+    noMoreMsg: {
+      type: String,
+      default: "— 我是有底线的 —"
+    }, 
+  }
+}
+</script>
+<style lang="less">
+.weui-loadmore {
+  width: 100%;
+  height: 100rpx;
+  font-size: 34rpx;
+  text-align: center;
+  margin-top: 30rpx;
+}
+
+.weui-loading {
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 16rpx;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-animation: weuiLoading 0.8s steps(20, end) infinite;
+  animation: weuiLoading 0.8s steps(20, end) infinite;
+  background: transparent url(data:img/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAF7mlUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4gPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iQWRvYmUgWE1QIENvcmUgNS42LWMxNDUgNzkuMTYzNDk5LCAyMDE4LzA4LzEzLTE2OjQwOjIyICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIiB4bWxuczpzdFJlZj0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL3NUeXBlL1Jlc291cmNlUmVmIyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1sbnM6ZGM9Imh0dHA6Ly9wdXJsLm9yZy9kYy9lbGVtZW50cy8xLjEvIiB4bWxuczpwaG90b3Nob3A9Imh0dHA6Ly9ucy5hZG9iZS5jb20vcGhvdG9zaG9wLzEuMC8iIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTkgKFdpbmRvd3MpIiB4bXA6Q3JlYXRlRGF0ZT0iMjAxOS0wNS0zMVQxNjo0MDozNyswODowMCIgeG1wOk1vZGlmeURhdGU9IjIwMTktMDUtMzFUMTY6NDI6MDErMDg6MDAiIHhtcDpNZXRhZGF0YURhdGU9IjIwMTktMDUtMzFUMTY6NDI6MDErMDg6MDAiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6M2MyMGExODYtY2NkNC05NjRiLWEzNjQtYWY0ZThiY2E3Y2FjIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkMzOUQyRjFGODM3RjExRTk4Mzg2RENBMUI5NzgzQjcyIiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6QzM5RDJGMUY4MzdGMTFFOTgzODZEQ0ExQjk3ODNCNzIiIGRjOmZvcm1hdD0iaW1hZ2UvcG5nIiBwaG90b3Nob3A6Q29sb3JNb2RlPSIzIiBwaG90b3Nob3A6SUNDUHJvZmlsZT0ic1JHQiBJRUM2MTk2Ni0yLjEiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpDMzlEMkYxQzgzN0YxMUU5ODM4NkRDQTFCOTc4M0I3MiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpDMzlEMkYxRDgzN0YxMUU5ODM4NkRDQTFCOTc4M0I3MiIvPiA8eG1wTU06SGlzdG9yeT4gPHJkZjpTZXE+IDxyZGY6bGkgc3RFdnQ6YWN0aW9uPSJzYXZlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDozYzIwYTE4Ni1jY2Q0LTk2NGItYTM2NC1hZjRlOGJjYTdjYWMiIHN0RXZ0OndoZW49IjIwMTktMDUtMzFUMTY6NDI6MDErMDg6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCBDQyAyMDE5IChXaW5kb3dzKSIgc3RFdnQ6Y2hhbmdlZD0iLyIvPiA8L3JkZjpTZXE+IDwveG1wTU06SGlzdG9yeT4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz5aN3/UAAABjElEQVRYheXWP0iVURjH8c+9qNzESJBwTbzgZKFLk+CsLeJYq2vS4qKEcGnQJZqj1SnvVrQliISbfxYjkZZosBoUvILSbXjfC8fLFV+se16hZ3mf38Ph/L7nvOd9n1OoTU3JGD14hHGM4B568RvfStVqOetEYXRkGFPGHJ7g1iVjTq9jfhVACRU8RdcV83z91wCDqOJ+U30bq1jHHn6kc2TZycwAo3iP/qC2hgVstBh/fl3zVgBlfMDdVNckr+AN6n9jlAWghLeB+S/Jqf/UDuNWABU8SPMTTGCzneZQTJ9lzAb1ZzHMQ4A5dKb5Ol7HMG8A3MbjoDavTQfuMoBJdKd6V7ID0aIo+bc3YjWmeQNgJNBRV98AGAj05zwA7gT6Zx4AuUYRR4HuywPgINBDeQBsBXosD4CPgZ7OA+CdpPvBsMi7UMQxVoLaCxRiAsAyztJ8DDOxAb7gVVB/iYcxAeA5dtK828UmFQWgJvkKDrGIpRgAzbfifcm98HsMcyjU69EuPy3jRjSj/xvgDyygPmhDL0ZOAAAAAElFTkSuQmCC) no-repeat;
+  background-size: 100%;
+}
+
+.weui-loadmore-tips {
+  display: inline-block;
+  vertical-align: middle;
+  color: #909090;
+  font-size: 26rpx;
+}
+</style>

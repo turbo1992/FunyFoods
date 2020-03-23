@@ -1,0 +1,161 @@
+
+<template>
+  <view class="tab-bar">
+    <view class="tab-bar-border"></view>
+    <repeat for = "{{list}}">
+        <view class="tab-wrap" wx:key="index" data-path="{{item.pagePath}}" data-index="{{index}}" @tap="switchTab">
+          <view class="icon-wrap" wx:if="{{item.isSpecial}}">
+            <view class="special-wrap">
+                <image class="special-icon" src="{{selected === index ? item.selectedIconPath : item.iconPath}}"></image>
+            </view>
+          </view>
+          <view class="icon-wrap" wx:else>
+            <image class="icon" src="{{selected === index ? item.selectedIconPath : item.iconPath}}"></image>
+          </view>
+            <view class="tab-txt" style="color: {{selected === index ? selectedColor : color}}">{{item.text}}</view>
+        </view>
+    </repeat>
+  </view>
+</template>
+
+<style lang="less">
+  .tab-bar{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px #e1e1e1 solid;
+    position: fixed;
+    bottom: 0;
+    height: 100rpx;
+    background: #fff;
+  }
+  .tab-wrap{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 20%;
+  }
+  .special-wrap{
+    width: 120rpx;
+    height: 120rpx;
+    z-index: 999;
+    // margin-top: -64rpx;
+    text-align: center;
+    position: relative;
+    bottom: 64rpx;
+  }
+  .icon-wrap{
+    position: relative;
+    height: 40rpx;
+  }
+  .icon{
+    width: 44rpx;
+    height: 44rpx;
+  }
+  .special-icon{
+    width: 116rpx;
+    height: 116rpx;
+  }
+  .tab-txt{
+    font-size: 22rpx;
+    margin: 4rpx 0 0 2rpx;
+  }
+  
+</style>
+
+<script>
+import wepy from 'wepy';
+import util from "@/utils/util";
+import constant from "@/utils/constant"; 
+
+    Component ({
+        data : {
+            selected: 0,
+            color: "#fba8a8",
+            selectedColor: "#F75151",
+        list: [
+        {
+          iconPath: '/images/home.png',
+          selectedIconPath: '/images/home_active.png',
+          pagePath: '/pages/home/home',
+          text: '首页'
+        },
+        {
+          iconPath: '/images/mall.png',
+          selectedIconPath: '/images/mall_active.png',
+          pagePath: '/pages/mall/mall',
+          text: '商城'
+        },
+        {
+          iconPath: '/images/lottery.png',
+          selectedIconPath: '/images/lottery_active.png',
+          pagePath: '/pages/lottery/lottery',
+          text: '',
+          isSpecial: true
+        },
+        {
+          iconPath: '/images/gift.png',
+          selectedIconPath: '/images/gift_active.png',
+          pagePath: '/pages/gift/gift',
+          text: '积分'
+        },
+        {
+          iconPath: '/images/mine.png',
+          selectedIconPath: '/images/mine_active.png',
+          pagePath: '/pages/mine/mine',
+          text: '我的'
+        }
+      ]
+        },
+        methods : {
+            switchTab(e) {
+                const data = e.currentTarget.dataset;
+                const index = data.index;
+                if (index === 2 || index === 3 || index === 4) {
+                    //礼物、抽奖、我的需要登录才能使用
+                    const that = this;
+                    let encryptWallet = wx.getStorageSync(constant.WALLET);
+                    if (util.isBlank(encryptWallet)) {
+                      let userInfo = wx.getStorageSync(constant.USER_INFO);
+                      if (userInfo == null || userInfo.length == 0) {
+                        //未登录，未授权
+                        wepy.navigateTo({
+                          url: "/pages/index"
+                        });
+                      } else {
+                        //未登录，已授权
+                        wepy.navigateTo({
+                          url: "/pages/login"
+                        });
+                      }
+                    } else {
+                      //已登录
+                      const url = data.path;
+                      wx.switchTab({url});
+                      that.setData({
+                        selected: index
+                      });
+                    }
+                } else {
+                  const url = data.path;
+                  wx.switchTab({url});
+                  this.setData({
+                      selected: index
+                  });
+                }
+            }
+        }
+    })
+
+export default class MyComponent extends wepy.component {
+    config = {
+        "component": true
+    }
+
+}
+</script>
+
+
+

@@ -1,0 +1,141 @@
+<style lang="less">
+page{
+  background: #F8F8FA;
+}
+// 个人信息
+.info{
+  position: relative;
+  z-index: 1;
+  .info-bg{
+    width: 750rpx;
+    height: 338rpx;
+    position: relative;
+    z-index: 1;
+  }
+  .info-con{
+    position: absolute;
+    left: 30rpx;
+    top: 30rpx;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    color: #fff;
+    font-size: 24rpx;
+    .head{
+      width: 120rpx;
+      height: 120rpx;
+      border-radius: 50%;
+      background: #fff;
+      margin: 0 30rpx 0 0;
+    }
+    text:first-child{
+      display: block;
+      font-size: 44rpx;
+      font-weight: 500;
+      margin: 0 0 10rpx 0;
+    }
+  }
+  // 未登录
+  .unlogin{
+    display: flex;
+    align-items: center;
+    .arrow{
+      font-size: 42rpx;
+      line-height: 42rpx;
+    }
+  }
+}
+.avatar{
+  width: 150rpx;
+  height: 130rpx;
+  border-radius: 50%;
+}
+.port{
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+}
+</style> 
+
+<template>
+  <view>
+    <!-- 个人信息 -->
+    <view class="info">
+      <image class="info-bg" src="../../images/mine_bg.png" />
+      <view class="info-con">
+        <!-- 无头像，默认 -->
+        <view class="avatar" wx:if="{{userInfo.avatarUrl==null}}">
+          <image class="head" src="../../images/head.png" />
+        </view>
+        <!-- 有头像 -->
+        <view class="avatar" wx:if="{{userInfo.avatarUrl!==null}}">
+          <image class="port" src="{{userInfo.avatarUrl}}" />
+        </view>
+        <view>
+          <text>Hello,狗子!</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from "wepy";
+  import api from "@/api/api";
+  import tip from "@/utils/tip";
+  import util from "@/utils/util";
+  import constant from "@/utils/constant";
+  import Panel from "@/components/panel";
+  import { BasePage } from "@/app";
+
+  export default class Mine extends BasePage {
+    config = {
+      navigationBarTitleText: '我的',
+      enablePullDownRefresh: true,
+      navigationBarBackgroundColor:'#E91919',
+      navigationBarTextStyle: 'white',
+      usingComponents: {
+        // parser: "/Parser/index",
+        "van-icon": "/components/vant-weapp/icon/index",
+        "van-grid": "/components/vant-weapp/grid/index",
+        "van-grid-item": "/components/vant-weapp/grid-item/index"
+      }
+    }
+    components = {
+    }
+    
+    data = {
+      imgService: api.imgService,
+      userInfo: null,
+      phoneNum: "",
+      //是否登录状态
+      isLogined: false,
+      userInfo: {
+        avatarUrl: null,
+        nickName: ''
+      },
+      openid: '',
+      unionid: '',
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+      
+    }
+
+    events = {
+
+    }
+    
+    onLoad() {
+      super.onLoad();
+    }
+
+    onUnload() {
+      super.onUnload();
+    }
+  }
+</script>

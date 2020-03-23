@@ -1,0 +1,47 @@
+<template>
+  <view class="empty" wx:if="{{showEmpty}}">
+    <image class="null" src="../../images/null.png"/>
+    <view class="null-txt">{{emptyMsg}}</view>
+  </view>
+</template>
+
+<script>
+import wepy from "wepy";
+import { BaseComponent } from "@/app";
+
+export default class emptyView extends BaseComponent {
+  props = {
+    showEmpty: {
+      type: Boolean,
+      default: false
+    },
+    emptyMsg: {
+      type: String,
+      default: "暂无数据"
+    }
+  }
+}
+</script>
+<style lang="less">
+.empty {
+  width: 100%;
+  height: 80vh;
+  font-size: 34rpx;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.null{
+  width: 508rpx;
+  height: 358rpx;
+}
+.null-txt{
+  color:#F75151;
+  font-size: 30rpx;
+  letter-spacing: 4rpx;
+  margin-top: 16rpx;
+  opacity: .7;
+}
+</style>

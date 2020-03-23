@@ -72,7 +72,7 @@ page{
           <image class="port" src="{{userInfo.avatarUrl}}" />
         </view>
         <view>
-          <text>Hello,狗子!</text>
+          <text>指尖上的芬芳</text>
         </view>
       </view>
     </view>

@@ -169,8 +169,8 @@
         line-height: 1.5;
       }
       .price{
-        font-size: 32rpx;
-        color: #E91919;
+        font-size: 26rpx;
+        // color: #191919;
         text{
           font-size: 26rpx;
         }
@@ -182,8 +182,8 @@
 <template>
   <view class="container">
     <!-- 搜索 -->
-    <van-search custom-class="search" field-class="input" shape="round" value="{{ searchValue }}" use-action-slot bind:search="onSearch" bind:change="onChange" placeholder="请输入搜索关键词" >
-      <view class="action" slot="action" bind:tap="onClick">搜索</view>
+    <van-search custom-class="search" field-class="input" shape="round" value="{{ searchValue }}" use-action-slot bind:search="onSearch" bind:change="onChange" placeholder="请输入美食名称" >
+      <view class="action" slot="action" bind:tap="clickDiscount(0)">搜索</view>
     </van-search>
     <!-- banner -->
     <swiper class="banner" indicator-dots="true" 
@@ -205,7 +205,7 @@
     <view class="wrap">
       <view class="top">
         <view class="tit">本周推荐</view>
-        <view class="more" @tap="clickDiscount(2)"><text>更多</text><image src="../../images/more.png"/></view>
+        <view class="more" @tap="clickDiscount(1)"><text>更多</text><image src="../../images/more.png"/></view>
       </view>
       <view class="part justify">
         <repeat for="{{topPartGoodList}}">
@@ -238,7 +238,7 @@
     <!-- 推荐商品 -->
     <view class="wrap">
       <view class="top">
-        <view class="tit">推荐商品</view>
+        <view class="tit">厨房用品</view>
       </view>
       <view class="product">
         <repeat for="{{recomandGoodsList}}">
@@ -247,7 +247,7 @@
               <image id="{{index}}" mode='widthFix' lazy-load='true' src="{{item.image_url}}" />
             </view>
             <view class="txt-omit name">{{item.title}}</view>
-            <view class="txt-omit price"><text>￥</text>{{item.price}}</view>
+            <view class="txt-omit price"><text>规格：</text>{{item.price}}</view>
           </view>
         </repeat>
       </view>
@@ -273,7 +273,7 @@ import EmptyView from "@/components/common/emptyView";
       navigationBarTitleText: '首页',
       navigationBarBackgroundColor:'#EC1515',
       navigationBarTextStyle: 'white',
-      enablePullDownRefresh: true,
+      enablePullDownRefresh: false,
       "usingComponents": {
         "van-search": "/components/vant-weapp/search/index",
         "van-grid": "/components/vant-weapp/grid/index",
@@ -307,15 +307,21 @@ import EmptyView from "@/components/common/emptyView";
       sortTabs: [
         {
           title: "电饭煲",
-          image_url: "http://img2.imgtn.bdimg.com/it/u=3709794625,1508687141&fm=15&gp=0.jpg"
+          image_url: "http://img2.imgtn.bdimg.com/it/u=3709794625,1508687141&fm=15&gp=0.jpg",
+          id: 2,
+          link_url: "http://img3.imgtn.bdimg.com/it/u=2633694331,3637276314&fm=26&gp=0.jpg"
         },
         {
           title: "厨具",
-          image_url: "http://img0.imgtn.bdimg.com/it/u=1788684042,3786669952&fm=15&gp=0.jpg"
+          image_url: "http://img0.imgtn.bdimg.com/it/u=1788684042,3786669952&fm=15&gp=0.jpg",
+          id: 3,
+          link_url: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=20020075,4154628244&fm=26&gp=0.jpg"
         },
         {
           title: "烹饪",
-          image_url: "http://img0.imgtn.bdimg.com/it/u=1624641722,2539712386&fm=26&gp=0.jpg"
+          image_url: "http://img0.imgtn.bdimg.com/it/u=1624641722,2539712386&fm=26&gp=0.jpg",
+          id: 4,
+          link_url: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2336404952,926799290&fm=26&gp=0.jpg"
         }
       ],
       topPartGoodList: [
@@ -349,43 +355,33 @@ import EmptyView from "@/components/common/emptyView";
       recomandGoodsList: [
         {
           title: "现代工匠 XDTG803",
-          price: "78.00",
-          image_url: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=284012624,1852938376&fm=15&gp=0.jpg"
+          price: "120x175 M",
+          image_url: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3603156961,1207375554&fm=26&gp=0.jpg",
         },
         {
-          title: "日日顺 热水壶TS3-2",
-          price: "198.00",
+          title: "热水壶TS3-2",
+          price: "中容量",
           image_url: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1296648999,627320034&fm=15&gp=0.jpg"
         },
         {
-          title: "现飞玻璃",
-          price: "2150.00",
-          image_url: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4253484129,462651652&fm=11&gp=0.jpg"
+          title: "四级汤勺小件",
+          price: "190x220 6件套",
+          image_url: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2544829659,2667645186&fm=26&gp=0.jpg"
         },
         {
-          title: "阿丽帆布鞋",
-          price: "198.00",
-          image_url: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3174758742,255814737&fm=26&gp=0.jpg"
+          title: "洗刷用品",
+          price: "36-42 MGCV",
+          image_url: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3417799635,2014479551&fm=26&gp=0.jpg"
         },
         {
-          title: "枫叶钟表",
-          price: "3999.00",
-          image_url: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1954117548,1702738692&fm=11&gp=0.jpg"
+          title: "清洁用品",
+          price: "100x95",
+          image_url: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2797352665,4246954223&fm=26&gp=0.jpg"
         },
         {
-          title: "星巴克上班族必备",
-          price: "83.53",
-          image_url: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1045147448,2265036594&fm=26&gp=0.jpg"
-        },
-        {
-          title: "苏宁特价包装盒",
-          price: "35.00",
-          image_url: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1156828458,1614815830&fm=11&gp=0.jpg"
-        },
-        {
-          title: "鲜奶酸奶特质饮品",
-          price: "48.00",
-          image_url: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2081345420,3571184753&fm=26&gp=0.jpg"
+          title: "厨具包装盒",
+          price: "120x75 P-23",
+          image_url: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2230334965,4289569323&fm=11&gp=0.jpg"
         }
       ],
       indicatorDots: true,//是否显示面板指示点
@@ -394,33 +390,8 @@ import EmptyView from "@/components/common/emptyView";
       interval: 3000,//自动切换时间间隔
       duration: 1000,//滑动动画时长
       apiService: api.apiService,
-      fileService: api.fileService,
-      //是否正在加载
-      isRequesting: false,
-      //请求任务
-      requestTask: "",
-      //商品分类列表
-      tabs: [],
-      //当前商品分类tab
-      currentTab: 0,
-      //banner列表
-      bannerList: [],
-      //是否显示空页面提示
-      showEmpty: false,
-
-      //推荐商品
-      tjGoodsList: [],
-      //爆款列表
-      topGoodList: [],
-      //精选品类列表
-      typeGoodList: [],
-      //活动商品列表
-      eventGoodList: [],
-      //所有首页二级分类
-      allTabs: [],
-      //搜索
+      fileService: api.fileService,     
       searchValue: "",
-
     }
 
     computed = {
@@ -428,17 +399,45 @@ import EmptyView from "@/components/common/emptyView";
 
     methods = {
       bannerClick(item) {
-        this.$preload("title", item.title);
-        this.$preload("linkUrl", item.link_url);
+        this.$preload("linkUrl", item.image_url);
+        this.$preload("id", item.id);
         wepy.navigateTo({
-          url: "/pages/webView"
+          url: "/pages/home/article_detail"
+        });
+      },
+      clickSecPv(item) {
+        this.$preload("linkUrl", item.link_url);
+        this.$preload("id", item.id);
+        wepy.navigateTo({
+          url: "/pages/home/article_detail"
+        });
+      },
+      clickDiscount(index) {
+        if (index == 0) {
+          let list = [];
+          for (let i = 0; i < this.topPartGoodList.length; i++) {
+            let item = this.topPartGoodList[i];
+            list.push(item);
+          }
+          for (let i = 0; i < this.bestPartGoodList.length; i++) {
+            let item = this.bestPartGoodList[i];
+            list.push(item);
+          }
+          this.$preload("list", list);
+        } else if (index == 1) {
+          this.$preload("list", this.topPartGoodList);
+        } else {
+          this.$preload("list", this.bestPartGoodList);
+        }
+        wepy.navigateTo({
+          url: "/pages/home/sort"
         });
       },
       clickDetail(item) {
         this.$preload("title", item.title);
         this.$preload("linkUrl", item.image_url);
         wepy.navigateTo({
-          url: "/pages/webView"
+          url: "/pages/home/food_detail"
         });
       }
     }

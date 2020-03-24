@@ -1,0 +1,102 @@
+<template>
+  <view class="container">
+    <view class="img-text">
+      <image style="width:750rpx;" mode="widthFix" src="{{src}}"/>
+      <view class="title">
+          <image src="../../images/bao-left.png" />
+          <text>{{title}}</text>
+          <image src="../../images/bao-right.png" />
+      </view>
+      <view class="word">
+          <text class="wordTitle">食材</text>
+          <text class="wordCon">{{material}}</text>
+      </view>
+      <view class="word">
+          <text class="wordTitle">制作方法</text>
+          <text class="wordCon">{{method}}</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from "wepy";
+import {BasePage} from '@/app'
+
+export default class FoodDetail extends BasePage {
+  config = {
+    navigationBarTitleText: "",
+    navigationBarBackgroundColor:'#EC1515',
+    navigationBarTextStyle: 'white',
+    "usingComponents": {}
+  };
+  data = {
+    src: "",
+    title: "",
+    material: "鸡翅中，生姜，葱，八角，盐，白糖，料酒，老抽，可乐，食用油",
+    method: "鸡翅中，两面改刀，料酒，十三香，盐，用手搅拌，入味十分钟，起锅烧油，炸至两面金黄，倒入一听可乐，一勺生命的源泉，生姜葱下锅，八角，一勺白糖，半勺老抽，煮十二分钟，大火收汁。"
+  };
+  methods = {
+  };
+
+  onLoad(options, data) {
+    super.onLoad();
+    this.src = data.preload.linkUrl;
+    this.title = data.preload.title;
+    wepy.setNavigationBarTitle({
+      title: "详情"
+    })
+  }
+}
+</script>
+
+
+<style lang="less">
+page {
+  background: #fff;
+}
+.img-text{
+    .title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20rpx 0 40rpx;
+        font-size: 36rpx;
+        color: #EC1515;
+        text{
+            margin: 0 16rpx;
+        }
+        image{
+            width:270rpx;
+            height: 36rpx;
+        }
+    }
+    .word{
+        padding: 0 20rpx;
+        color: #323232;
+        display: flex;
+        flex-direction:column;
+        margin-bottom: 40rpx;
+        .wordTitle{
+           font-size: 28rpx;
+           font-weight: bold;
+           display: flex;
+           align-items: center;
+           &:before{
+               display: inline-block;
+               width:8rpx;
+               height: 8rpx;
+               border-radius: 50rpx;
+               background: #1c1515;
+               content:""; 
+               margin-right: 10rpx;
+           } 
+        }
+        .wordCon{
+            font-size: 26rpx;
+            margin-top: 16rpx;
+            font-weight: 200;
+        }
+    }
+}
+</style>

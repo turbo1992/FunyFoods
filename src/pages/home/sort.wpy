@@ -1,0 +1,141 @@
+<style lang="less">
+page{
+  background: #fff;
+  padding-top: 100rpx;
+  position: relative;
+}
+.product{
+  width: 730rpx;
+  padding: 0 0rpx;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: -50rpx;
+  .pro-item{
+    width: 330rpx;
+    height: 450rpx;
+    background: #fff;
+    border-radius: 10rpx;
+    margin-bottom: 10rpx;
+    margin: 10rpx 10rpx 30rpx 20rpx;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .img-box{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 345rpx;
+      height: 345rpx;
+      line-height: 345rpx;
+      margin-bottom: 20rpx;
+      margin-left: 0;
+      image{
+        max-width: 345rpx;
+        max-height: 345rpx;
+      }
+    }
+    view{
+      width: 300rpx;
+      font-size: 26rpx;
+      margin: 0 0 0 10rpx;
+      line-height: 1.5;
+    }
+    .name{
+      width: 345rpx;
+    }
+    .price{
+      width: 330rpx;
+      padding-right: 15rpx;
+      font-size: 24rpx;
+      color: #222;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .small{
+        font-size: 26rpx;
+      }
+    }
+  }
+}
+</style>
+<template>
+  <view class="">
+    <view class="product">
+      <repeat for="{{foodList}}">
+        <view class="pro-item" wx:key="index" @tap="clickDetail({{item}})">
+          <view class="img-box">
+            <image id="{{index}}" mode='aspectFit' lazy-load='true' src="{{item.image_url}}" />
+          </view>
+          <view class="txt-omit name">{{item.title}}</view>
+          <view class="txt-omit price">
+            <text>查看详情</text>
+          </view>
+        </view>
+      </repeat>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from "wepy";
+import { BasePage } from "@/app";
+import api from "@/api/api";
+import util from "@/utils/util";
+import tip from "@/utils/tip";
+import lodash from "lodash";
+import constant from "@/utils/constant";
+import aiwanwxs from "../../wxs/aiwanwxs.wxs";
+import BottomLoadMore from "@/components/common/bottomLoadMore";
+import EmptyView from "@/components/common/emptyView";
+
+  export default class Mall extends wepy.page {
+    config = {
+      navigationBarTitleText: '更多',
+      navigationBarBackgroundColor:'#EC1515',
+      navigationBarTextStyle: 'white',
+      enablePullDownRefresh: false,
+      "usingComponents": {
+        "van-search": "/components/vant-weapp/search/index",
+        "van-tab": "/components/vant-weapp/tab/index",
+        "van-tabs": "/components/vant-weapp/tabs/index"
+      }
+    }
+    wxs = {
+        aiwanwxs: aiwanwxs
+    }
+    components = {
+    }
+
+    data = {
+      foodList: []
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+      clickDetail(item) {
+        this.$preload("title", item.title);
+        this.$preload("linkUrl", item.image_url);
+        wepy.navigateTo({
+          url: "/pages/home/food_detail"
+        });
+      }
+    }
+
+    async onShow() {
+
+    }
+
+    async onLoad(options, data) {
+      super.onLoad();
+
+      this.foodList = data.preload.list;
+    }
+
+    onUnload() {
+      super.onUnload();
+    }
+  }
+</script>

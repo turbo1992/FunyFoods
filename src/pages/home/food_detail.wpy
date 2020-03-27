@@ -1,5 +1,11 @@
 <template>
   <view class="container">
+    <view class="info">
+      <view class="price justify">
+          <text><text class="small">栏目：指尖上的芬芳（享受美食）</text></text>
+      </view>
+      <view class="name">食谱：{{title}}</view>
+    </view>
     <view class="img-text">
       <image style="width:750rpx;" mode="widthFix" src="{{src}}"/>
       <view class="title">
@@ -12,7 +18,7 @@
           <text class="wordCon">{{material}}</text>
       </view>
       <view class="word">
-          <text class="wordTitle">制作方法</text>
+          <text class="wordTitle">方法</text>
           <text class="wordCon">{{method}}</text>
       </view>
     </view>
@@ -44,7 +50,7 @@ export default class FoodDetail extends BasePage {
     this.src = data.preload.linkUrl;
     this.title = data.preload.title;
     wepy.setNavigationBarTitle({
-      title: "详情"
+      title: "美食详情"
     })
   }
 }
@@ -54,6 +60,36 @@ export default class FoodDetail extends BasePage {
 <style lang="less">
 page {
   background: #fff;
+}
+.info{
+    width: 710rpx;
+    padding: 20rpx;
+    border-bottom: 20rpx #F8F8FA solid;
+    view{
+        line-height: 1.5;
+    }
+    .price{
+        color: #333;
+        font-size: 26rpx;
+        text:first-child{
+            font-size: 36rpx;
+            color: #666;
+            font-weight: bold;
+            .small{
+                font-size: 40rpx;
+            }
+        }
+    }
+    .name{
+        font-size: 28rpx;
+        color: #666;
+        font-weight: bold;
+        margin-top: 10rpx;
+    }
+    .desc{
+        font-size: 28rpx;
+        color: #666;
+    }
 }
 .img-text{
     .title{

@@ -205,13 +205,13 @@
     <view class="wrap">
       <view class="top">
         <view class="tit">本周推荐</view>
-        <view class="more" @tap="clickDiscount(1)"><text>更多</text><image src="../../images/more.png"/></view>
+        <view class="more" @tap="clickDiscount(0)"><text>更多</text><image src="../../images/more.png"/></view>
       </view>
       <view class="part justify">
         <repeat for="{{topPartGoodList}}">
           <view class="part-item" @tap="clickDetail({{item}})">
             <view class="img-box">
-              <image id="{{index}}" mode='aspectFit' lazy-load='true' src="{{item.image_url}}"/>
+              <image id="{{index}}" mode='aspectFill' lazy-load='true' src="{{item.image_url}}"/>
             </view>
             <text class="txt-omit">{{item.title}}</text>
           </view>
@@ -222,13 +222,13 @@
     <view class="wrap">
       <view class="top">
         <view class="tit">上期作品</view>
-        <view class="more" @tap="clickDiscount(2)"><text>更多</text><image src="../../images/more.png"/></view>
+        <view class="more" @tap="clickDiscount(0)"><text>更多</text><image src="../../images/more.png"/></view>
       </view>
       <view class="part justify">
         <repeat for="{{bestPartGoodList}}">
           <view class="part-item" @tap="clickDetail({{item}})">
             <view class="img-box">
-              <image id="{{index}}" mode='aspectFit' lazy-load='true' src="{{item.image_url}}"/>
+              <image id="{{index}}" mode='aspectFill' lazy-load='true' src="{{item.image_url}}"/>
             </view>
             <text class="txt-omit">{{item.title}}</text>
           </view>

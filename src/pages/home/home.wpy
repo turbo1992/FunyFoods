@@ -123,6 +123,9 @@
           max-height: 212rpx;
         }
       }
+      .txt-omit{
+        text-align: center;
+      }
       text{
         line-height: 1.5;
         font-size: 24rpx;
@@ -292,46 +295,52 @@ import EmptyView from "@/components/common/emptyView";
       // banner图片地址
       imgUrls: [
         {
+          title: "昆明生煎包",
+          image_url: "http://img2.imgtn.bdimg.com/it/u=3708313505,1492535857&fm=26&gp=0.jpg",
+          link_url: "http://img2.imgtn.bdimg.com/it/u=3708313505,1492535857&fm=26&gp=0.jpg",
+          id: 0
+        },
+        {
           title: "清新下午茶唯美句子",
           image_url: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3083821528,58504364&fm=26&gp=0.jpg",
           link_url: "https://www.21zx.net/a/191002/18940.html",
-          id: 0
+          id: 1
         },
         {
           title: "烹饪有道",
           image_url: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3246402327,1890149760&fm=26&gp=0.jpg",
           link_url: "https://baijiahao.baidu.com/s?id=1639366769046051682&wfr=spider&for=pc",
-          id: 1
+          id: 2
         }
       ],
       sortTabs: [
         {
           title: "电饭煲",
           image_url: "http://img2.imgtn.bdimg.com/it/u=3709794625,1508687141&fm=15&gp=0.jpg",
-          id: 2,
+          id: 3,
           link_url: "http://img3.imgtn.bdimg.com/it/u=2633694331,3637276314&fm=26&gp=0.jpg"
         },
         {
           title: "厨具",
           image_url: "http://img0.imgtn.bdimg.com/it/u=1788684042,3786669952&fm=15&gp=0.jpg",
-          id: 3,
+          id: 4,
           link_url: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=20020075,4154628244&fm=26&gp=0.jpg"
         },
         {
           title: "烹饪",
           image_url: "http://img0.imgtn.bdimg.com/it/u=1624641722,2539712386&fm=26&gp=0.jpg",
-          id: 4,
+          id: 5,
           link_url: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2336404952,926799290&fm=26&gp=0.jpg"
         }
       ],
       topPartGoodList: [
         {
-          title: "清炒小油菜",
-          image_url: "http://47.240.18.73:10336/images/youcai.jpeg"
+          title: "水煮肉片",
+          image_url: "http://47.240.18.73:10336/images/shuizhuroupian.jpeg"
         },
         {
-          title: "花菜炒肉",
-          image_url: "http://47.240.18.73:10336/images/huacai.jpeg"
+          title: "清炒小油菜",
+          image_url: "http://47.240.18.73:10336/images/youcai.jpeg"
         },
         {
           title: "可乐鸡翅",
@@ -344,8 +353,8 @@ import EmptyView from "@/components/common/emptyView";
           image_url: "http://47.240.18.73:10336/images/daxia.jpg"
         },
         {
-          title: "水果甜品",
-          image_url: "http://47.240.18.73:10336/images/fruit.jpeg"
+          title: "花菜炒肉",
+          image_url: "http://47.240.18.73:10336/images/huacai.jpeg"
         },
         {
           title: "蒜蓉小龙虾",
@@ -423,6 +432,11 @@ import EmptyView from "@/components/common/emptyView";
             let item = this.bestPartGoodList[i];
             list.push(item);
           }
+          let item = {
+            title: "水果甜品",
+            image_url: "http://47.240.18.73:10336/images/fruit.jpeg"
+          };
+          list.push(item);
           this.$preload("list", list);
         } else if (index == 1) {
           this.$preload("list", this.topPartGoodList);

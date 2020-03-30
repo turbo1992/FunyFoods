@@ -2,7 +2,7 @@
   <view class="container">
     <view class="info">
       <view class="price justify">
-          <text><text class="small">栏目：指尖上的芬芳（享受美食）</text></text>
+          <text><text class="small">栏目：指尖上的芬芳</text></text>
       </view>
       <view class="name">食谱：{{title}}</view>
     </view>
@@ -15,11 +15,13 @@
       </view>
       <view class="word">
           <text class="wordTitle">食材</text>
-          <text class="wordCon">{{material}}</text>
+          <text class="wordCon" wx:if="{{!isMeat}}">{{material}}</text>
+          <text class="wordCon" wx:if="{{isMeat}}">{{meat_material}}</text>
       </view>
       <view class="word">
           <text class="wordTitle">方法</text>
-          <text class="wordCon">{{method}}</text>
+          <text class="wordCon" wx:if="{{!isMeat}}">{{method}}</text>
+          <text class="wordCon" wx:if="{{isMeat}}">{{meat_method}}</text>
       </view>
     </view>
   </view>
@@ -39,8 +41,11 @@ export default class FoodDetail extends BasePage {
   data = {
     src: "",
     title: "",
+    isMeat: false,
     material: "鸡翅中，生姜，葱，八角，盐，白糖，料酒，老抽，可乐，食用油",
-    method: "鸡翅中，两面改刀，料酒，十三香，盐，用手搅拌，入味十分钟，起锅烧油，炸至两面金黄，倒入一听可乐，一勺生命的源泉，生姜葱下锅，八角，一勺白糖，半勺老抽，煮十二分钟，大火收汁。"
+    method: "鸡翅中，两面改刀，料酒，十三香，盐，用手搅拌，入味十分钟；\n起锅烧油，炸至两面金黄，倒入一听可乐，一勺生命的源泉，生姜葱下锅，八角，一勺白糖，半勺老抽；\n煮十二分钟，大火收汁。",
+    meat_material: "生姜，葱，鸡蛋，盐，白糖，料酒，豆瓣酱，生抽，土豆淀粉，花椒，食用油",
+    meat_method: "里脊肉，大块切薄片，料酒，一个鸡蛋，两勺土豆淀粉，盐，半勺白糖，抓匀腌制10分钟；\n起锅烧油，倒入一到两勺豆瓣酱，炒10-15秒，倒两碗水，水开放入油菜豆芽(喜欢什么放什么)，菜煮1分钟捞出放入海碗备用，锅中放入生姜、大葱、鸡精、一勺生抽，里脊肉下锅，炒熟捞出放入海碗，锅里的汤倒入海碗；\n切干辣椒，蒜末，铺在海碗上，再铺一勺花椒，重点来了，起锅烧油，油开，泼油上味。"
   };
   methods = {
   };
@@ -52,6 +57,9 @@ export default class FoodDetail extends BasePage {
     wepy.setNavigationBarTitle({
       title: "美食详情"
     })
+    if (this.title == "水煮肉片") {
+      this.isMeat = true;
+    }
   }
 }
 </script>

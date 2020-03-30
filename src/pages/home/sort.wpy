@@ -41,12 +41,13 @@ page{
     }
     .name{
       width: 345rpx;
+      color: #D23723;
     }
     .price{
       width: 330rpx;
       padding-right: 15rpx;
       font-size: 26rpx;
-      color: #191919;
+      color: #37B4D2;
       display: flex;
       justify-content: space-between;
       align-items: center;

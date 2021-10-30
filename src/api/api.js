@@ -507,4 +507,9 @@ api.pickupList = (params, res) => wxRequest(params, apiService + '/api/v1/public
  */
 api.redeemCodeList = (params, res) => wxRequest(params, apiService + '/api/v1/user/redeemCodeList', res);
 
+/**
+ * 
+ * test 
+ */
+
 export default api;

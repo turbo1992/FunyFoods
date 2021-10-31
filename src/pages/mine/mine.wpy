@@ -63,16 +63,12 @@ page{
     <view class="info">
       <image class="info-bg" src="../../images/mine_bg.png" />
       <view class="info-con">
-        <!-- 无头像，默认 -->
-        <view class="avatar" wx:if="{{userInfo.avatarUrl==null}}">
-          <image class="head" src="../../images/head.png" />
-        </view>
-        <!-- 有头像 -->
-        <view class="avatar" wx:if="{{userInfo.avatarUrl!==null}}">
-          <image class="port" src="{{userInfo.avatarUrl}}" />
+        <!-- 头像 -->
+        <view class="avatar">
+          <image class="port" src="{{avatarUrl}}" />
         </view>
         <view>
-          <text>Hello,狗子!</text>
+          <text>指尖上的芬芳</text>
         </view>
       </view>
     </view>
@@ -110,10 +106,7 @@ page{
       phoneNum: "",
       //是否登录状态
       isLogined: false,
-      userInfo: {
-        avatarUrl: null,
-        nickName: ''
-      },
+      avatarUrl: "http://47.240.18.73:10336/images/timg.jpg",
       openid: '',
       unionid: '',
     }

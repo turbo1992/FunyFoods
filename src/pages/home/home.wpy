@@ -123,6 +123,9 @@
           max-height: 212rpx;
         }
       }
+      .txt-omit{
+        text-align: center;
+      }
       text{
         line-height: 1.5;
         font-size: 24rpx;
@@ -169,8 +172,8 @@
         line-height: 1.5;
       }
       .price{
-        font-size: 32rpx;
-        color: #E91919;
+        font-size: 26rpx;
+        // color: #191919;
         text{
           font-size: 26rpx;
         }
@@ -182,15 +185,15 @@
 <template>
   <view class="container">
     <!-- 搜索 -->
-    <van-search custom-class="search" field-class="input" shape="round" value="{{ searchValue }}" use-action-slot bind:search="onSearch" bind:change="onChange" placeholder="请输入搜索关键词" >
-      <view class="action" slot="action" bind:tap="onClick">搜索</view>
+    <van-search custom-class="search" field-class="input" shape="round" value="{{ searchValue }}" use-action-slot bind:search="onSearch" bind:change="onChange" placeholder="请输入美食名称" >
+      <view class="action" slot="action" bind:tap="clickDiscount(0)">搜索</view>
     </van-search>
     <!-- banner -->
     <swiper class="banner" indicator-dots="true" 
     autoplay="{{autoplay}}" interval="{{interval}}" circular="{{circular}}" duration="{{duration}}">
       <repeat wx:for="{{imgUrls}}">
         <swiper-item>
-          <image src="{{item}}" @tap="bannerClick"/> 
+          <image src="{{item.image_url}}" @tap="bannerClick({{item}})"/> 
         </swiper-item>
       </repeat>
     </swiper>
@@ -204,14 +207,14 @@
     <!-- 销量top -->
     <view class="wrap">
       <view class="top">
-        <view class="tit">销量TOP榜</view>
-        <view class="more" @tap="clickDiscount(2)"><text>更多</text><image src="../../images/more.png"/></view>
+        <view class="tit">本周推荐</view>
+        <view class="more" @tap="clickDiscount(0)"><text>更多</text><image src="../../images/more.png"/></view>
       </view>
       <view class="part justify">
         <repeat for="{{topPartGoodList}}">
           <view class="part-item" @tap="clickDetail({{item}})">
             <view class="img-box">
-              <image id="{{index}}" mode='aspectFit' lazy-load='true' src="{{item.image_url}}"/>
+              <image id="{{index}}" mode='aspectFill' lazy-load='true' src="{{item.image_url}}"/>
             </view>
             <text class="txt-omit">{{item.title}}</text>
           </view>
@@ -221,14 +224,14 @@
     <!-- 精选品类 -->
     <view class="wrap">
       <view class="top">
-        <view class="tit">精选品类</view>
-        <view class="more" @tap="clickDiscount(2)"><text>更多</text><image src="../../images/more.png"/></view>
+        <view class="tit">上期作品</view>
+        <view class="more" @tap="clickDiscount(0)"><text>更多</text><image src="../../images/more.png"/></view>
       </view>
       <view class="part justify">
         <repeat for="{{bestPartGoodList}}">
           <view class="part-item" @tap="clickDetail({{item}})">
             <view class="img-box">
-              <image id="{{index}}" mode='aspectFit' lazy-load='true' src="{{item.image_url}}"/>
+              <image id="{{index}}" mode='aspectFill' lazy-load='true' src="{{item.image_url}}"/>
             </view>
             <text class="txt-omit">{{item.title}}</text>
           </view>
@@ -238,16 +241,16 @@
     <!-- 推荐商品 -->
     <view class="wrap">
       <view class="top">
-        <view class="tit">推荐商品</view>
+        <view class="tit">厨房用品</view>
       </view>
       <view class="product">
         <repeat for="{{recomandGoodsList}}">
           <view class="pro-item" @tap="clickDetail({{item}})">
             <view class="img-box">
-              <image id="{{index}}" mode='aspectFit' lazy-load='true' src="{{item.image_url}}" />
+              <image id="{{index}}" mode='widthFix' lazy-load='true' src="{{item.image_url}}" />
             </view>
             <view class="txt-omit name">{{item.title}}</view>
-            <view class="txt-omit price"><text>￥</text>{{item.price}}</view>
+            <view class="txt-omit price"><text>规格：</text>{{item.price}}</view>
           </view>
         </repeat>
       </view>
@@ -273,7 +276,7 @@ import EmptyView from "@/components/common/emptyView";
       navigationBarTitleText: '首页',
       navigationBarBackgroundColor:'#EC1515',
       navigationBarTextStyle: 'white',
-      enablePullDownRefresh: true,
+      enablePullDownRefresh: false,
       "usingComponents": {
         "van-search": "/components/vant-weapp/search/index",
         "van-grid": "/components/vant-weapp/grid/index",
@@ -291,110 +294,103 @@ import EmptyView from "@/components/common/emptyView";
     data = {
       // banner图片地址
       imgUrls: [
-        "http://img1.imgtn.bdimg.com/it/u=2801835243,3541926566&fm=26&gp=0.jpg",
-        "http://img5.imgtn.bdimg.com/it/u=3660944626,2042593901&fm=26&gp=0.jpg",
-        "http://img3.imgtn.bdimg.com/it/u=3473174832,1826015065&fm=26&gp=0.jpg",
-        "http://img0.imgtn.bdimg.com/it/u=3769665953,1269923219&fm=26&gp=0.jpg",
-        "http://img1.imgtn.bdimg.com/it/u=2937250246,518409057&fm=26&gp=0.jpg"
+        {
+          title: "昆明生煎包",
+          image_url: "http://img2.imgtn.bdimg.com/it/u=3708313505,1492535857&fm=26&gp=0.jpg",
+          link_url: "http://img2.imgtn.bdimg.com/it/u=3708313505,1492535857&fm=26&gp=0.jpg",
+          id: 0
+        },
+        {
+          title: "清新下午茶唯美句子",
+          image_url: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=3083821528,58504364&fm=26&gp=0.jpg",
+          link_url: "https://www.21zx.net/a/191002/18940.html",
+          id: 1
+        },
+        {
+          title: "烹饪有道",
+          image_url: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3246402327,1890149760&fm=26&gp=0.jpg",
+          link_url: "https://baijiahao.baidu.com/s?id=1639366769046051682&wfr=spider&for=pc",
+          id: 2
+        }
       ],
       sortTabs: [
         {
-          title: "家具日用",
-          image_url: "http://img2.imgtn.bdimg.com/it/u=3709794625,1508687141&fm=15&gp=0.jpg"
+          title: "电饭煲",
+          image_url: "http://img2.imgtn.bdimg.com/it/u=3709794625,1508687141&fm=15&gp=0.jpg",
+          id: 3,
+          link_url: "http://img3.imgtn.bdimg.com/it/u=2633694331,3637276314&fm=26&gp=0.jpg"
         },
         {
           title: "厨具",
-          image_url: "http://img0.imgtn.bdimg.com/it/u=1788684042,3786669952&fm=15&gp=0.jpg"
+          image_url: "http://img0.imgtn.bdimg.com/it/u=1788684042,3786669952&fm=15&gp=0.jpg",
+          id: 4,
+          link_url: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=20020075,4154628244&fm=26&gp=0.jpg"
         },
         {
-          title: "家庭清洁",
-          image_url: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=3493947929,2109886042&fm=26&gp=0.jpg"
-        },
-        {
-          title: "个人洗护",
-          image_url: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3999423404,573397113&fm=26&gp=0.jpg"
-        },
-        {
-          title: "旅游必备",
-          image_url: "http://img0.imgtn.bdimg.com/it/u=1624641722,2539712386&fm=26&gp=0.jpg"
-        },
-        {
-          title: "时装",
-          image_url: "http://img3.imgtn.bdimg.com/it/u=1858916787,1837105476&fm=26&gp=0.jpg"
-        },
-        {
-          title: "护肤类",
-          image_url: "http://img1.imgtn.bdimg.com/it/u=1748971385,4247617050&fm=26&gp=0.jpg"
+          title: "烹饪",
+          image_url: "http://img0.imgtn.bdimg.com/it/u=1624641722,2539712386&fm=26&gp=0.jpg",
+          id: 5,
+          link_url: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=2336404952,926799290&fm=26&gp=0.jpg"
         }
       ],
       topPartGoodList: [
         {
-          title: "洗家家储物架",
-          image_url: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1678414207,2092457171&fm=26&gp=0.jpg"
+          title: "水煮肉片",
+          image_url: "http://47.240.18.73:10336/images/shuizhuroupian.jpeg"
         },
         {
-          title: "苏菲 极上乳液",
-          image_url: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2520181397,925125121&fm=15&gp=0.jpg"
+          title: "清炒小油菜",
+          image_url: "http://47.240.18.73:10336/images/youcai.jpeg"
         },
         {
-          title: "乐好收纳盒",
-          image_url: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1254455181,1253429449&fm=26&gp=0.jpg"
+          title: "可乐鸡翅",
+          image_url: "http://47.240.18.73:10336/images/jichi.jpeg"
         }
       ],
       bestPartGoodList: [
         {
-          title: "医用康王洗发水",
-          image_url: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=1430558401,1404706726&fm=26&gp=0.jpg"
+          title: "冬阴功汤",
+          image_url: "http://47.240.18.73:10336/images/daxia.jpg"
         },
         {
-          title: "特价毛巾四件套",
-          image_url: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3896670543,2782548026&fm=26&gp=0.jpg"
+          title: "花菜炒肉",
+          image_url: "http://47.240.18.73:10336/images/huacai.jpeg"
         },
         {
-          title: "糖果专柜女装专场",
-          image_url: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2843510867,3197038064&fm=26&gp=0.jpg"
+          title: "蒜蓉小龙虾",
+          image_url: "http://47.240.18.73:10336/images/xiaolongxia.jpeg"
         }
       ],
       recomandGoodsList: [
         {
           title: "现代工匠 XDTG803",
-          price: "78.00",
-          image_url: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=284012624,1852938376&fm=15&gp=0.jpg"
+          price: "120x175 M",
+          image_url: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3603156961,1207375554&fm=26&gp=0.jpg",
         },
         {
-          title: "日日顺 热水壶TS3-2",
-          price: "198.00",
+          title: "热水壶TS3-2",
+          price: "中容量",
           image_url: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=1296648999,627320034&fm=15&gp=0.jpg"
         },
         {
-          title: "现飞玻璃",
-          price: "2150.00",
-          image_url: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=4253484129,462651652&fm=11&gp=0.jpg"
+          title: "四级汤勺小件",
+          price: "190x220 6件套",
+          image_url: "https://ss1.bdstatic.com/70cFuXSh_Q1YnxGkpoWK1HF6hhy/it/u=2544829659,2667645186&fm=26&gp=0.jpg"
         },
         {
-          title: "阿丽帆布鞋",
-          price: "198.00",
-          image_url: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3174758742,255814737&fm=26&gp=0.jpg"
+          title: "洗刷用品",
+          price: "36-42 MGCV",
+          image_url: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3417799635,2014479551&fm=26&gp=0.jpg"
         },
         {
-          title: "枫叶钟表",
-          price: "3999.00",
-          image_url: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1954117548,1702738692&fm=11&gp=0.jpg"
+          title: "清洁用品",
+          price: "100x95",
+          image_url: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=2797352665,4246954223&fm=26&gp=0.jpg"
         },
         {
-          title: "星巴克上班族必备",
-          price: "83.53",
-          image_url: "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1045147448,2265036594&fm=26&gp=0.jpg"
-        },
-        {
-          title: "苏宁特价包装盒",
-          price: "35.00",
-          image_url: "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1156828458,1614815830&fm=11&gp=0.jpg"
-        },
-        {
-          title: "鲜奶酸奶特质饮品",
-          price: "48.00",
-          image_url: "https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2081345420,3571184753&fm=26&gp=0.jpg"
+          title: "厨具包装盒",
+          price: "120x75 P-23",
+          image_url: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2230334965,4289569323&fm=11&gp=0.jpg"
         }
       ],
       indicatorDots: true,//是否显示面板指示点
@@ -403,39 +399,61 @@ import EmptyView from "@/components/common/emptyView";
       interval: 3000,//自动切换时间间隔
       duration: 1000,//滑动动画时长
       apiService: api.apiService,
-      fileService: api.fileService,
-      //是否正在加载
-      isRequesting: false,
-      //请求任务
-      requestTask: "",
-      //商品分类列表
-      tabs: [],
-      //当前商品分类tab
-      currentTab: 0,
-      //banner列表
-      bannerList: [],
-      //是否显示空页面提示
-      showEmpty: false,
-
-      //推荐商品
-      tjGoodsList: [],
-      //爆款列表
-      topGoodList: [],
-      //精选品类列表
-      typeGoodList: [],
-      //活动商品列表
-      eventGoodList: [],
-      //所有首页二级分类
-      allTabs: [],
-      //搜索
+      fileService: api.fileService,     
       searchValue: "",
-
     }
 
     computed = {
     }
 
     methods = {
+      bannerClick(item) {
+        this.$preload("linkUrl", item.image_url);
+        this.$preload("id", item.id);
+        wepy.navigateTo({
+          url: "/pages/home/article_detail"
+        });
+      },
+      clickSecPv(item) {
+        this.$preload("linkUrl", item.link_url);
+        this.$preload("id", item.id);
+        wepy.navigateTo({
+          url: "/pages/home/article_detail"
+        });
+      },
+      clickDiscount(index) {
+        if (index == 0) {
+          let list = [];
+          for (let i = 0; i < this.topPartGoodList.length; i++) {
+            let item = this.topPartGoodList[i];
+            list.push(item);
+          }
+          for (let i = 0; i < this.bestPartGoodList.length; i++) {
+            let item = this.bestPartGoodList[i];
+            list.push(item);
+          }
+          let item = {
+            title: "水果甜品",
+            image_url: "http://47.240.18.73:10336/images/fruit.jpeg"
+          };
+          list.push(item);
+          this.$preload("list", list);
+        } else if (index == 1) {
+          this.$preload("list", this.topPartGoodList);
+        } else {
+          this.$preload("list", this.bestPartGoodList);
+        }
+        wepy.navigateTo({
+          url: "/pages/home/sort"
+        });
+      },
+      clickDetail(item) {
+        this.$preload("title", item.title);
+        this.$preload("linkUrl", item.image_url);
+        wepy.navigateTo({
+          url: "/pages/home/food_detail"
+        });
+      }
     }
 
   async onLoad() {

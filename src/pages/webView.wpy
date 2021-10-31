@@ -22,9 +22,8 @@ export default class Lciense extends BasePage {
 
   onLoad(options, data) {
     super.onLoad();
-    // this.src = data.preload.src;
-    this.src = wepy.getStorageSync("bannerClickUrl");
-    let title = wepy.getStorageSync("bannerTitle");
+    this.src = data.preload.linkUrl;
+    let title = data.preload.title;
     wepy.setNavigationBarTitle({
       title: title
     })

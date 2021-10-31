@@ -1,0 +1,146 @@
+<template>
+  <view class="container">
+    <view class="info">
+      <view class="price justify">
+          <text><text class="small">栏目：指尖上的芬芳</text></text>
+      </view>
+      <view class="name">食谱：{{title}}</view>
+    </view>
+    <view class="img-text">
+      <image style="width:750rpx;" mode="widthFix" src="{{src}}"/>
+      <view class="title">
+          <image src="../../images/bao-left.png" />
+          <text>{{title}}</text>
+          <image src="../../images/bao-right.png" />
+      </view>
+      <view class="word">
+          <text class="wordTitle">食材</text>
+          <text class="wordCon" wx:if="{{!isMeat}}">{{material}}</text>
+          <text class="wordCon" wx:if="{{isMeat}}">{{meat_material}}</text>
+      </view>
+      <view class="word">
+          <text class="wordTitle">方法</text>
+          <text class="wordCon" wx:if="{{!isMeat}}">{{method}}</text>
+          <text class="wordCon" wx:if="{{isMeat}}">{{meat_method}}</text>
+      </view>
+    </view>
+  </view>
+</template>
+
+<script>
+import wepy from "wepy";
+import {BasePage} from '@/app'
+
+export default class FoodDetail extends BasePage {
+  config = {
+    navigationBarTitleText: "",
+    navigationBarBackgroundColor:'#EC1515',
+    navigationBarTextStyle: 'white',
+    "usingComponents": {}
+  };
+  data = {
+    src: "",
+    title: "",
+    isMeat: false,
+    material: "鸡翅中，生姜，葱，八角，盐，白糖，料酒，老抽，可乐，食用油",
+    method: "鸡翅中，两面改刀，料酒，十三香，盐，用手搅拌，入味十分钟；\n起锅烧油，炸至两面金黄，倒入一听可乐，一勺生命的源泉，生姜葱下锅，八角，一勺白糖，半勺老抽；\n煮十二分钟，大火收汁。",
+    meat_material: "生姜，葱，鸡蛋，盐，白糖，料酒，豆瓣酱，生抽，土豆淀粉，花椒，食用油",
+    meat_method: "里脊肉，大块切薄片，料酒，一个鸡蛋，两勺土豆淀粉，盐，半勺白糖，抓匀腌制10分钟；\n起锅烧油，倒入一到两勺豆瓣酱，炒10-15秒，倒两碗水，水开放入油菜豆芽(喜欢什么放什么)，菜煮1分钟捞出放入海碗备用，锅中放入生姜、大葱、鸡精、一勺生抽，里脊肉下锅，炒熟捞出放入海碗，锅里的汤倒入海碗；\n切干辣椒，蒜末，铺在海碗上，再铺一勺花椒，重点来了，起锅烧油，油开，泼油上味。"
+  };
+  methods = {
+  };
+
+  onLoad(options, data) {
+    super.onLoad();
+    this.src = data.preload.linkUrl;
+    this.title = data.preload.title;
+    wepy.setNavigationBarTitle({
+      title: "美食详情"
+    })
+    if (this.title == "水煮肉片") {
+      this.isMeat = true;
+    }
+  }
+}
+</script>
+
+
+<style lang="less">
+page {
+  background: #fff;
+}
+.info{
+    width: 710rpx;
+    padding: 20rpx;
+    border-bottom: 20rpx #F8F8FA solid;
+    view{
+        line-height: 1.5;
+    }
+    .price{
+        color: #333;
+        font-size: 26rpx;
+        text:first-child{
+            font-size: 36rpx;
+            color: #666;
+            font-weight: bold;
+            .small{
+                font-size: 40rpx;
+            }
+        }
+    }
+    .name{
+        font-size: 28rpx;
+        color: #666;
+        font-weight: bold;
+        margin-top: 10rpx;
+    }
+    .desc{
+        font-size: 28rpx;
+        color: #666;
+    }
+}
+.img-text{
+    .title{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20rpx 0 40rpx;
+        font-size: 36rpx;
+        color: #EC1515;
+        text{
+            margin: 0 16rpx;
+        }
+        image{
+            width:270rpx;
+            height: 36rpx;
+        }
+    }
+    .word{
+        padding: 0 20rpx;
+        color: #323232;
+        display: flex;
+        flex-direction:column;
+        margin-bottom: 40rpx;
+        .wordTitle{
+           font-size: 28rpx;
+           font-weight: bold;
+           display: flex;
+           align-items: center;
+           &:before{
+               display: inline-block;
+               width:8rpx;
+               height: 8rpx;
+               border-radius: 50rpx;
+               background: #1c1515;
+               content:""; 
+               margin-right: 10rpx;
+           } 
+        }
+        .wordCon{
+            font-size: 26rpx;
+            margin-top: 16rpx;
+            font-weight: 200;
+        }
+    }
+}
+</style>

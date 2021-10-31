@@ -235,8 +235,11 @@ export default class extends wepy.app {
   config = {
     pages: [
       "pages/home/home", //首页
+      "pages/home/article_detail", //文章详情
+      "pages/home/food_detail", //美食详情
+      "pages/home/sort", //分类列表
       "pages/mine/mine", //我的
-      "pages/webView" //banner外链
+      "pages/webView" //webview
     ],
     tabBar: {
       color: "#999999",

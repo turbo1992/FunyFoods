@@ -518,4 +518,10 @@ api.redeemCodeList = (params, res) => wxRequest(params, apiService + '/api/v1/us
  * 
  */
 
+/**
+ * 
+ * test 3
+ * 
+ */
+
 export default api;

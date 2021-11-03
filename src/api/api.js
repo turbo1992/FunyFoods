@@ -4,6 +4,7 @@ import {
 
 let api = {};
 
+//11111111
 //1本地开发环境aaaaa
 //2线上环境
 let apiService = 'http://yp.peersafe.cn';

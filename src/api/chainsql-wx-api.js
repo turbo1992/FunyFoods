@@ -5,6 +5,7 @@ import api from "@/api/api";
 function getSignatureForCommon(message, secret) {
     return chainsqlWechatApi.signCommon(message, secret);
 }
+
 //
 async function generateWallet() {
     //首先从服务器获取随机码

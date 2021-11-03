@@ -509,7 +509,7 @@ api.redeemCodeList = (params, res) => wxRequest(params, apiService + '/api/v1/us
 
 /**
  * 
- * test 
+ * test 1
  */
 
 /**

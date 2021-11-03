@@ -4,8 +4,8 @@ import {
 
 let api = {};
 
-//本地开发环境
-//线上环境
+// 本地开发环境
+// 线上环境
 let apiService = 'http://yp.peersafe.cn';
 
 api.imgService = apiService + '/api/v1/public/download?url=static/';

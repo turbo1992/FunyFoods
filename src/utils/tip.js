@@ -56,7 +56,7 @@ export default class Tips {
   }
 
   /**
-   * 警告框
+   * 警告框alert
    */
   static alert(title) {
     wepy.showToast({

@@ -116,6 +116,8 @@ export default class Tips {
   }
 }
 
+// test branch
+
 /**
  * 静态变量，是否加载中
  */

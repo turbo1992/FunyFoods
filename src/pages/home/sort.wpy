@@ -81,6 +81,8 @@ page{
 </template>
 
 <script>
+
+// other
 import wepy from "wepy";
 import { BasePage } from "@/app";
 import api from "@/api/api";

@@ -133,6 +133,7 @@ util.replaceNormal = (text) => {
 // 333
 // 1
 // 2
+// 3
 //只能输入数字
 util.replaceNum = (text) => {
   return text.replace(/[^0-9]/g, '');

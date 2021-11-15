@@ -122,3 +122,6 @@ export default class Tips {
  * 静态变量，是否加载中
  */
 Tips.isLoading = false;
+
+
+// 222

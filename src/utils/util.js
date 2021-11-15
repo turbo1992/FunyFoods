@@ -130,6 +130,8 @@ util.replaceNormal = (text) => {
   return text.replace(/[^0-9a-zA-Z-/:;\(\)&@'"\?,!\[\]\{\}#%^\*\+=_\\\|~<>\$\.]/g, '');
 }
 
+// 333
+
 //只能输入数字
 util.replaceNum = (text) => {
   return text.replace(/[^0-9]/g, '');

@@ -14,7 +14,7 @@ api.fileService = apiService + '/api/v1/public/download?url=';
 api.uploadUrl = apiService + '/api/v1/public/upload';
 
 api.apiService = apiService;
-
+//11111
 /**
  * 注册
  * @param  {Object} params 请求参数，包括手机号、账户类型、验证码、账户密文、加密过的密码、公钥、账户地址、邀请码（选填）

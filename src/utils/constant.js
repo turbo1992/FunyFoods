@@ -250,4 +250,6 @@ constant.ORDER_STATE = {
     CANCEL: 7        //已取消
 };
 
+// test constant
+
 export default constant;

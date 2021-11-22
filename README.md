@@ -34,3 +34,4 @@ wepy build --watch
 
 
 
+test other

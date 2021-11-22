@@ -30,7 +30,7 @@ page {
   flex-direction: column;
   align-items: center;
 }
-//按钮
+//按钮2
 button:after {
   border: none;
 }

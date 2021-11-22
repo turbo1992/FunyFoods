@@ -12,13 +12,13 @@ page {
   box-sizing: border-box;
   color: #333;
 }
-//水平居中
+//水平居中1
 .center {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-// 两端对齐
+// 两端对齐2
 .justify {
   display: flex;
   align-items: center;

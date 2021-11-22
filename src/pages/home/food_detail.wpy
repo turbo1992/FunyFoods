@@ -63,8 +63,7 @@ export default class FoodDetail extends BasePage {
   }
 }
 </script>
-//123
-//123
+//234
 <style lang="less">
 page {
   background: #fff;

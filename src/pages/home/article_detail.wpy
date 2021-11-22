@@ -68,7 +68,7 @@ export default class ArticleDetail extends BasePage {
 <style lang="less">
 page {
   background: #fff;
-}
+}//1
 .img-text{
     .title{
         display: flex;

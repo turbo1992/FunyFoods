@@ -270,8 +270,7 @@ import constant from "@/utils/constant";
 import aiwanwxs from "../../wxs/aiwanwxs.wxs";
 import BottomLoadMore from "@/components/common/bottomLoadMore";
 import EmptyView from "@/components/common/emptyView";
-//111
-//222
+//1111111
   export default class home extends wepy.page {
     config = {
       navigationBarTitleText: '首页',

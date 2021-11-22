@@ -64,6 +64,7 @@ export default class FoodDetail extends BasePage {
 }
 </script>
 //234
+//aaaaa
 <style lang="less">
 page {
   background: #fff;
